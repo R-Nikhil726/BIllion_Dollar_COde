@@ -1,0 +1,93 @@
+{%  extends "Dashboard/Navbar.html" %}
+
+
+{% block Style %}
+<link rel="stylesheet" type="text/css" href="/static/Css/leave.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mochiy+Pop+P+One ">
+{% endblock %}
+
+{% block content %}
+{% if employee.get_role != "Executives" %}
+<div class="personal">
+          <div class="container-fluid ">
+                <div class="row align-items-center">
+                    <div class="col-md-0  mt-0 ">
+                      </div>
+
+                    <div class="col-md-12 mt-0">
+                        <div class="form-bg">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-container">
+                                                <h3 class="title">Task assignment</h3>
+                                                <form class="form-horizontal" action="{% url 'task_creation' %}" enctype="multipart/form-data" method="POST">
+                                                    {% csrf_token %}
+
+
+                                                     <div class="form-group " >
+                                                        <label> Assigned To</label>
+                                                        <select  name="assigned_to" class="form-control" >
+                                                            {% if employees.get_role == "TechnicalHead" %}
+
+                                                             {% for j in employee %}
+                                                                {% if j.get_role == "DomainHead" %}
+                                                                <option value="{{j.id}}">{{j.get_name}}</option>
+                                                                {% endif %}
+                                                             {% endfor %}
+
+                                                             {% else  %}
+                                                             {% for j in dep_employee %}
+                                                               <option value="{{j.id}}">  {{j.get_name}}  </option>
+                                                             {% endfor %}
+
+                                                             {% endif %}
+                                                        </select>
+                                                    </div>
+                                                     <div class="form-group" >
+                                                        <label>Task title</label>
+                                                        <input type='text' class="form-control " name="task_title" > </input>
+                                                    </div>
+
+
+                                                     <div class="form-group" style="width:100%;" >
+                                                        <label>Task Description</label>
+                                                        <textarea class="form-control " name="task_description" ></textarea>
+                                                    </div>
+                                                     <div class="form-group" >
+                                                        <label>Attachment</label>
+                                                        <input type='File' class="form-control" name="attachment" > </input>
+                                                    </div>
+
+
+                                                    <div></div>
+                                                    <div class="form-group">
+                                                        <label>Dead Line</label>
+                                                        <input type="date" class="form-control" name="deadline">
+                                                    </div>
+
+                                                    <div>
+                                                          <input type="hidden" name="assign_date" id="A_Date">
+                                                    </div>
+                                                <button class="btn signup">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                     </div>
+
+
+          </div>
+</div>
+</div>
+{% endif %}
+ <script type="text/javascript">
+    var d = new Date();
+    d=d.toISOString().substring(0,10);
+    document.getElementById("A_Date").value = d;
+  </script>
+{% endblock %}

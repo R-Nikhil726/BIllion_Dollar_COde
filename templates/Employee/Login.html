@@ -1,0 +1,33 @@
+{%  extends "Dashboard/Navbar.html" %}
+{% block Style %}
+    <link rel="stylesheet" type="text/css" href="/static/Css/login.css">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+
+
+{% endblock %}
+
+{% block content %}
+<body>
+
+<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+<div class="wrapper">
+    <div class="logo"> <img src="static/Employee/login_background.jpeg"> </div>
+    <div class="text-center mt-4 name"> Login  </div>
+    <form class="p-3 mt-3" action ="" method="POST">
+            {% csrf_token %}
+
+        <div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> <input type="text" name="username"  placeholder="Username"> </div>
+        <div class="form-field d-flex align-items-center"> <span class="fas fa-key"></span> <input type="password" name="password" placeholder="Password"> </div> <button class="btn mt-3">Login</button>
+    </form>
+</div>
+</body>
+{% endblock %}
